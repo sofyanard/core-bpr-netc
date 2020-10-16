@@ -133,4 +133,17 @@ namespace CoreBPR.Models
         [StringLength(20)]
         public string RekBukuBesar { get; set; }
     }
+
+    public class UserLoginModel
+    {
+        [Required]
+        [Display(Name = "User ID")]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+        public string UserId { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(25, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+        public string Password { get; set; }
+    }
 }

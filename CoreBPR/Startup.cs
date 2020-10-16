@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using CoreBPR.Models;
 
 namespace CoreBPR
@@ -31,6 +33,14 @@ namespace CoreBPR
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCloudscribePagination();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => { options.LoginPath = "/Account/Login"; });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdministratorOnly", policy => policy.RequireClaim("GroupId", "G001"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +56,14 @@ namespace CoreBPR
             }
             app.UseStaticFiles();
 
+            app.UseCookiePolicy(new CookiePolicyOptions()
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict
+            });
+
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

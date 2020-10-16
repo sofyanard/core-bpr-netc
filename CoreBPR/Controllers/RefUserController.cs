@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cloudscribe.Pagination.Models;
 using CoreBPR.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreBPR.Controllers
 {
+    [Authorize(Policy = "AdministratorOnly")]
     public class RefUserController : Controller
     {
         private readonly ApplicationDbContext _context;
