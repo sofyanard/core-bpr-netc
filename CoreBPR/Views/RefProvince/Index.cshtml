@@ -1,0 +1,60 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<RefProvince>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "RefProvince";
+    ViewData["Action"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    @Html.DisplayNameFor(model => model.Data[0].ProvinceId)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    @Html.DisplayNameFor(model => model.Data[0].ProvinceName)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProvinceId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProvinceName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProvinceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProvinceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProvinceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />

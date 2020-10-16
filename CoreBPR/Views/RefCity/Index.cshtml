@@ -1,0 +1,92 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<RefCity>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "RefCity";
+    ViewData["Action"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<p>
+    <form asp-action="Index" method="get">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="prov" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].RefProvince.ProvinceName)</label>
+                    <div class="col-sm-8">
+                        <select class="selectpicker form-control" data-live-search="true" name="prov" asp-items="ViewBag.ProvinceId">
+                            <option value="">-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="SearchString" class="col-sm-4 col-form-label">Find by name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="nama" value="@ViewData["nama"]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                    <a asp-action="Index" class="btn btn-link">Back to Full List</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefProvince.ProvinceName)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["IdSortParm"]" asp-route-prov="@ViewData["prov"]" asp-route-nama="@ViewData["nama"]">
+                    @Html.DisplayNameFor(model => model.Data[0].CityId)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["NameSortParm"]" asp-route-prov="@ViewData["prov"]" asp-route-nama="@ViewData["nama"]">
+                    @Html.DisplayNameFor(model => model.Data[0].CityName)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefProvince.ProvinceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CityId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CityId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CityId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />

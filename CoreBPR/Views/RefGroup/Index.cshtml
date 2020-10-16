@@ -1,0 +1,77 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<RefGroup>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "RefGroup";
+    ViewData["Action"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<p>
+    <form asp-action="Index" method="get">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="SearchString" class="col-sm-4 col-form-label">Find by name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="nama" value="@ViewData["nama"]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                    <a asp-action="Index" class="btn btn-link">Back to Full List</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["IdSortParm"]" asp-route-nama="@ViewData["nama"]">
+                    @Html.DisplayNameFor(model => model.Data[0].GroupId)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["NameSortParm"]" asp-route-nama="@ViewData["nama"]">
+                    @Html.DisplayNameFor(model => model.Data[0].GroupName)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GroupId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GroupId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GroupId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />
