@@ -20,7 +20,7 @@ namespace CoreBPR.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
             return View();
         }
@@ -84,7 +84,7 @@ namespace CoreBPR.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> AccessDenied()
+        public IActionResult AccessDenied()
         {
             return View();
         }

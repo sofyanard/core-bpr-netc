@@ -15,6 +15,8 @@ namespace CoreBPR.Models
         }
 
         public DbSet<ApplicationInitial> ApplicationInitials { get; set; }
+        public DbSet<RefMenu> RefMenus { get; set; }
+        public DbSet<RefGroupMenu> RefGroupMenus { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<RefGroup> RefGroups { get; set; }
         public DbSet<RefUnit> RefUnits { get; set; }

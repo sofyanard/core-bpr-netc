@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoreBPR.Controllers
 {
-    [Authorize(Policy = "AdministratorOnly")]
+    // [Authorize(Policy = "AdministratorOnly")]
     public class RefUserController : Controller
     {
         private readonly ApplicationDbContext _context;

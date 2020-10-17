@@ -1,0 +1,87 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<RefGroupMenu>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "RefGroupMenu";
+    ViewData["Action"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<p>
+    <form asp-action="Index" method="get">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="prov" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].RefGroup.GroupName)</label>
+                    <div class="col-sm-8">
+                        <select class="selectpicker form-control" data-live-search="true" name="group" asp-items="ViewBag.GroupId">
+                            <option value="">-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                    <a asp-action="Index" class="btn btn-link">Back to Full List</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefGroup.GroupName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefMenu.ParentRefMenu.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefMenu.ParentRefMenu.MenuName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefMenu.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefMenu.MenuName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefGroup.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefMenu.ParentRefMenu.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefMenu.ParentRefMenu.MenuName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefMenu.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefMenu.MenuName)
+            </td>
+            <td>
+                <!-- <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> | -->
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />
