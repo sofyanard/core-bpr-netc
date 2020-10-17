@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using CoreBPR.Models;
+using CoreBPR.Services;
 
 namespace CoreBPR
 {
@@ -41,6 +42,8 @@ namespace CoreBPR
             {
                 options.AddPolicy("AdministratorOnly", policy => policy.RequireClaim("GroupId", "G001"));
             });
+
+            services.AddScoped<IApplicationService, ApplicationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

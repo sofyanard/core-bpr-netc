@@ -66,4 +66,25 @@ namespace CoreBPR.Models
         [ForeignKey("MenuId")]
         public virtual RefMenu RefMenu { get; set; }
     }
+
+    public class ApplicationMenuChild
+    {
+        public string MenuId { get; set; }
+        public string MenuName { get; set; }
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public string Param { get; set; }
+    }
+
+    public class ApplicationMenu
+    {
+        public string MenuId { get; set; }
+        public string MenuName { get; set; }
+        public List<ApplicationMenuChild> Children { get; set; }
+
+        public ApplicationMenu()
+        {
+            this.Children = new List<ApplicationMenuChild>();
+        }
+    }
 }

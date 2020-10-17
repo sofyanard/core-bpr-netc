@@ -1,0 +1,20 @@
+﻿@model List<CoreBPR.Models.ApplicationMenu>
+
+@if (User.Identity.IsAuthenticated)
+{
+    foreach (var item in Model)
+    {
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @item.MenuName
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @foreach (var child in item.Children)
+        {
+            <a class="dropdown-item" asp-area="" asp-controller="@child.Controller" asp-action="@child.Action">@child.MenuName</a>
+        }
+    </div>
+</li>
+        
+    }
+}
