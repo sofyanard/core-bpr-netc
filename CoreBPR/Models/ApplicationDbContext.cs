@@ -22,6 +22,20 @@ namespace CoreBPR.Models
         public DbSet<RefUnit> RefUnits { get; set; }
         public DbSet<RefProvince> RefProvinces { get; set; }
         public DbSet<RefCity> RefCities { get; set; }
+        public DbSet<RefGender> RefGenders { get; set; }
+        public DbSet<RefHomeStatus> RefHomeStatuses { get; set; }
+        public DbSet<RefMarital> RefMaritals { get; set; }
+        public DbSet<RefCitizen> RefCitizens { get; set; }
+        public DbSet<RefEducation> RefEducations { get; set; }
+        public DbSet<RefJenisIdentity> RefJenisIdentities { get; set; }
+        public DbSet<RefYesNo> RefYesNos { get; set; }
+        public DbSet<RefJenisBadanUsaha> RefJenisBadanUsahas { get; set; }
+        public DbSet<RefBidangUsaha> RefBidangUsahas { get; set; }
+        public DbSet<RefJobType> RefJobTypes { get; set; }
+        public DbSet<RefSourceIncome> RefSourceIncomes { get; set; }
+        public DbSet<RefGolonganNasabah> RefGolonganNasabahs { get; set; }
+        public DbSet<RefHubunganBank> RefHubunganBanks { get; set; }
+        public DbSet<RefLembagaRating> RefLembagaRatings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
