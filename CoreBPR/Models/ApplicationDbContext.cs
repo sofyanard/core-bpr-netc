@@ -36,6 +36,7 @@ namespace CoreBPR.Models
         public DbSet<RefGolonganNasabah> RefGolonganNasabahs { get; set; }
         public DbSet<RefHubunganBank> RefHubunganBanks { get; set; }
         public DbSet<RefLembagaRating> RefLembagaRatings { get; set; }
+        public DbSet<Nasabah> Nasabahs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
