@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Numerics;
 
 namespace CoreBPR.Models
 {
@@ -86,5 +87,16 @@ namespace CoreBPR.Models
         {
             this.Children = new List<ApplicationMenuChild>();
         }
+    }
+
+    [Table("RefCIFGenerator")]
+    public class RefCIFGenerator
+    {
+        [Key]
+        [Column("CIFPrefix")]
+        public string CIFPrefix { get; set; }
+
+        [Column("CIFCurrentNo")]
+        public long CIFCurrentNo { get; set; }
     }
 }

@@ -1,0 +1,175 @@
+﻿@model CoreBPR.Models.NasabahPerorangan
+
+<h4>Pembentukan Nasabah Baru</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Nasabah Perorangan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="CreateBadanUsaha">Nasabah Badan Usaha</a>
+    </li>
+</ul>
+
+<p>
+    <form asp-action="CreatePerorangan">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NamaLengkap" class="control-label"></label>
+                    <input asp-for="NamaLengkap" class="form-control" />
+                    <span asp-validation-for="NamaLengkap" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NamaIdentity" class="control-label"></label>
+                    <input asp-for="NamaIdentity" class="form-control" />
+                    <span asp-validation-for="NamaIdentity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JenisIdentityId" class="control-label"></label>
+                    <select asp-for="JenisIdentityId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.JenisIdentityId"></select>
+                    <span asp-validation-for="JenisIdentityId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdentityNo" class="control-label"></label>
+                    <input asp-for="IdentityNo" class="form-control" />
+                    <span asp-validation-for="IdentityNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GenderId" class="control-label"></label>
+                    <select asp-for="GenderId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.GenderId"></select>
+                    <span asp-validation-for="GenderId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TempatLahir" class="control-label"></label>
+                    <input asp-for="TempatLahir" class="form-control" />
+                    <span asp-validation-for="TempatLahir" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TanggalLahir" class="control-label"></label>
+                    <input asp-for="TanggalLahir" class="form-control" />
+                    <span asp-validation-for="TanggalLahir" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeAddress" class="control-label"></label>
+                    <input asp-for="HomeAddress" class="form-control" />
+                    <span asp-validation-for="HomeAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomePropinsiId" class="control-label"></label>
+                    <select asp-for="HomePropinsiId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.HomePropinsiId"></select>
+                    <span asp-validation-for="HomePropinsiId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeKotaId" class="control-label"></label>
+                    <select asp-for="HomeKotaId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.HomeKotaId"></select>
+                    <span asp-validation-for="HomeKotaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeKecamatan" class="control-label"></label>
+                    <input asp-for="HomeKecamatan" class="form-control" />
+                    <span asp-validation-for="HomeKecamatan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeKelurahan" class="control-label"></label>
+                    <input asp-for="HomeKelurahan" class="form-control" />
+                    <span asp-validation-for="HomeKelurahan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeZipCode" class="control-label"></label>
+                    <input asp-for="HomeZipCode" class="form-control" />
+                    <span asp-validation-for="HomeZipCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NasabahId" class="control-label"></label>
+                    <input asp-for="NasabahId" class="form-control" readonly />
+                    <span asp-validation-for="NasabahId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NPWPNo" class="control-label"></label>
+                    <input asp-for="NPWPNo" class="form-control" />
+                    <span asp-validation-for="NPWPNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomePhone" class="control-label"></label>
+                    <input asp-for="HomePhone" class="form-control" />
+                    <span asp-validation-for="HomePhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MobilePhone" class="control-label"></label>
+                    <input asp-for="MobilePhone" class="form-control" />
+                    <span asp-validation-for="MobilePhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CitizenId" class="control-label"></label>
+                    <select asp-for="CitizenId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.CitizenId"></select>
+                    <span asp-validation-for="CitizenId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EducationId" class="control-label"></label>
+                    <select asp-for="EducationId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.EducationId"></select>
+                    <span asp-validation-for="EducationId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HomeStatusId" class="control-label"></label>
+                    <select asp-for="HomeStatusId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.HomeStatusId"></select>
+                    <span asp-validation-for="HomeStatusId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MaritalId" class="control-label"></label>
+                    <select asp-for="MaritalId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.MaritalId"></select>
+                    <span asp-validation-for="MaritalId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="KodeHartaId" class="control-label"></label>
+                    <select asp-for="KodeHartaId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.KodeHartaId"></select>
+                    <span asp-validation-for="KodeHartaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tanggungan" class="control-label"></label>
+                    <input asp-for="Tanggungan" class="form-control" />
+                    <span asp-validation-for="Tanggungan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NamaIbuKandung" class="control-label"></label>
+                    <input asp-for="NamaIbuKandung" class="form-control" />
+                    <span asp-validation-for="NamaIbuKandung" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $('#HomePropinsiId').change(function () {
+                $.ajax({
+                    url: '../../api/parameter/citiesbyprovince/' + $('#HomePropinsiId').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#HomeKotaId').empty();
+                        $.each(result, function () {
+                            $('#HomeKotaId').append($("<option />").val(this.cityId).text(this.cityName));
+                        });
+                        $('#HomeKotaId').selectpicker('refresh');
+                    }
+                });
+            });
+        });
+    </script>
+}

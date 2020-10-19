@@ -1,0 +1,148 @@
+﻿@model cloudscribe.Pagination.Models.PagedResult<NasabahList>
+
+@{
+    ViewData["Title"] = "Pemeliharaan Data Nasabah";
+    ViewData["Controller"] = "Nasabah";
+    ViewData["Action"] = "ListEdit";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+
+<p>
+    <form asp-action="ListEdit" method="get">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="NamaLengkap" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].NamaLengkap)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="NamaLengkap" value="@ViewData["NamaLengkap"]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="NasabahId" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].NasabahId)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="NasabahId" value="@ViewData["NasabahId"]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="TanggalLahir" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].TanggalLahir)</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" name="TanggalLahir" value="@ViewData["TanggalLahir"]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="IdentityNo" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].IdentityNo)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="IdentityNo" value="@ViewData["IdentityNo"]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="Address" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].Address)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="Address" value="@ViewData["Address"]" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="NPWPNo" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].NPWPNo)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="NPWPNo" value="@ViewData["NPWPNo"]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="CityId" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].RefCity.CityName)</label>
+                    <div class="col-sm-8">
+                        <select class="selectpicker form-control" data-live-search="true" name="CityId" asp-items="ViewBag.CityId">
+                            <option value="">-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                    <a asp-action="ListEdit" class="btn btn-link">Back to Full List</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].NasabahId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].NamaLengkap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].TanggalLahir)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].RefCity.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].IdentityNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data[0].NPWPNo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NasabahId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamaLengkap)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TanggalLahir)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefCity.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdentityNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NPWPNo)
+                </td>
+                <td>
+                    <a asp-action="@item.Action" asp-route-id="@item.NasabahId">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />
