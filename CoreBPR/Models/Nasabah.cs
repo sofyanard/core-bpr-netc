@@ -660,4 +660,109 @@ namespace CoreBPR.Models
 
         public string Action { get; set; }
     }
+
+    public class NasabahJobnSpouse
+    {
+        [Key]
+        [StringLength(20)]
+        [Display(Name = "No Nasabah")]
+        public string NasabahId { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Pekerjaan")]
+        public string JobTypeId { get; set; }
+
+        [ForeignKey("JobTypeId")]
+        public virtual RefJobType RefJobType { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Tempat Bekerja")]
+        public string TempatBekerja { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Bidang Usaha")]
+        public string BidangUsahaId { get; set; }
+
+        [ForeignKey("BidangUsahaId")]
+        public virtual RefBidangUsaha RefBidangUsaha { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Alamat Kantor")]
+        public string OfficeAddress { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Propinsi")]
+        public string OfficePropinsiId { get; set; }
+
+        [ForeignKey("OfficePropinsiId")]
+        public virtual RefProvince OfficeRefProvince { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Kota/Kabupaten")]
+        public string OfficeKotaId { get; set; }
+
+        [ForeignKey("OfficeKotaId")]
+        public virtual RefCity OfficeRefCity { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Kecamatan")]
+        public string OfficeKecamatan { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Kelurahan")]
+        public string OfficeKelurahan { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Kode Pos")]
+        public string OfficeZipCode { get; set; }
+
+        [StringLength(20)]
+        [Display(Name = "Telepon Kantor")]
+        public string OfficePhone { get; set; }
+
+        [Column("Income")]
+        // [DataType(DataType.Currency)]
+        [Display(Name = "Pendapatan")]
+        public double? Income { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Nama Pasangan")]
+        public string SpouseName { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Tempat Lahir")]
+        public string SpouseTempatLahir { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Tanggal Lahir")]
+        public DateTime? SpouseTanggalLahir { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Jenis Identitas")]
+        public string SpouseJenisIdentityId { get; set; }
+
+        [ForeignKey("SpouseJenisIdentityId")]
+        public virtual RefJenisIdentity SpouseRefJenisIdentity { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "No Identitas")]
+        public string SpouseIdentityNo { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Pekerjaan")]
+        public string SpouseJobTypeId { get; set; }
+
+        [ForeignKey("SpouseJobTypeId")]
+        public virtual RefJobType SpouseRefJobType { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Pendidikan")]
+        public string SpouseEducationId { get; set; }
+
+        [ForeignKey("SpouseEducationId")]
+        public virtual RefEducation SpouseRefEducation { get; set; }
+    }
 }

@@ -43,5 +43,7 @@ namespace CoreBPR.Models
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<CoreBPR.Models.NasabahJobnSpouse> NasabahJobnSpouse { get; set; }
     }
 }

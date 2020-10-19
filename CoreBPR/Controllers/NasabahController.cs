@@ -80,6 +80,7 @@ namespace CoreBPR.Controllers
                 nasabah.HomePhone = nasabahPerorangan.HomePhone;
                 nasabah.MobilePhone = nasabahPerorangan.MobilePhone;
                 nasabah.NamaIbuKandung = nasabahPerorangan.NamaIbuKandung;
+                nasabah.CitizenId = nasabahPerorangan.CitizenId;
                 nasabah.MaritalId = nasabahPerorangan.MaritalId;
                 nasabah.EducationId = nasabahPerorangan.EducationId;
                 nasabah.JenisIdentityId = nasabahPerorangan.JenisIdentityId;
@@ -197,6 +198,7 @@ namespace CoreBPR.Controllers
             nasabahPerorangan.HomePhone = nasabah.HomePhone;
             nasabahPerorangan.MobilePhone = nasabah.MobilePhone;
             nasabahPerorangan.NamaIbuKandung = nasabah.NamaIbuKandung;
+            nasabahPerorangan.CitizenId = nasabah.CitizenId;
             nasabahPerorangan.MaritalId = nasabah.MaritalId;
             nasabahPerorangan.EducationId = nasabah.EducationId;
             nasabahPerorangan.JenisIdentityId = nasabah.JenisIdentityId;
@@ -215,6 +217,7 @@ namespace CoreBPR.Controllers
             ViewData["HomeStatusId"] = new SelectList(_context.RefHomeStatuses, "HomeStatusId", "HomeStatusName", nasabahPerorangan.HomeStatusId);
             ViewData["JenisIdentityId"] = new SelectList(_context.RefJenisIdentities, "JenisIdentityId", "JenisIdentityName", nasabahPerorangan.JenisIdentityId);
             ViewData["MaritalId"] = new SelectList(_context.RefMaritals, "MaritalId", "MaritalName", nasabahPerorangan.MaritalId);
+            ViewData["NasabahId"] = id;
             return View(nasabahPerorangan);
         }
 
@@ -249,6 +252,7 @@ namespace CoreBPR.Controllers
                     nasabah.HomePhone = nasabahPerorangan.HomePhone;
                     nasabah.MobilePhone = nasabahPerorangan.MobilePhone;
                     nasabah.NamaIbuKandung = nasabahPerorangan.NamaIbuKandung;
+                    nasabah.CitizenId = nasabahPerorangan.CitizenId;
                     nasabah.MaritalId = nasabahPerorangan.MaritalId;
                     nasabah.EducationId = nasabahPerorangan.EducationId;
                     nasabah.JenisIdentityId = nasabahPerorangan.JenisIdentityId;
@@ -265,7 +269,7 @@ namespace CoreBPR.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NasabahPeroranganExists(nasabahPerorangan.NasabahId))
+                    if (!NasabahExists(nasabahPerorangan.NasabahId))
                     {
                         return NotFound();
                     }
@@ -285,6 +289,7 @@ namespace CoreBPR.Controllers
             ViewData["HomeStatusId"] = new SelectList(_context.RefHomeStatuses, "HomeStatusId", "HomeStatusName", nasabahPerorangan.HomeStatusId);
             ViewData["JenisIdentityId"] = new SelectList(_context.RefJenisIdentities, "JenisIdentityId", "JenisIdentityName", nasabahPerorangan.JenisIdentityId);
             ViewData["MaritalId"] = new SelectList(_context.RefMaritals, "MaritalId", "MaritalName", nasabahPerorangan.MaritalId);
+            ViewData["NasabahId"] = id;
             return View(nasabahPerorangan);
         }
 
@@ -332,6 +337,7 @@ namespace CoreBPR.Controllers
             ViewData["OfficePropinsiId"] = new SelectList(_context.RefProvinces, "ProvinceId", "ProvinceName", nasabahBadanUsaha.OfficePropinsiId);
             ViewData["BidangUsahaId"] = new SelectList(_context.RefBidangUsahas, "BidangUsahaId", "BidangUsahaName", nasabahBadanUsaha.BidangUsahaId);
             ViewData["JenisBadanUsahaId"] = new SelectList(_context.RefJenisBadanUsahas, "JenisBadanUsahaId", "JenisBadanUsahaName", nasabahBadanUsaha.JenisBadanUsahaId);
+            ViewData["NasabahId"] = id;
             return View(nasabahBadanUsaha);
         }
 
@@ -381,7 +387,7 @@ namespace CoreBPR.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NasabahBadanUsahaExists(nasabahBadanUsaha.NasabahId))
+                    if (!NasabahExists(nasabahBadanUsaha.NasabahId))
                     {
                         return NotFound();
                     }
@@ -397,6 +403,7 @@ namespace CoreBPR.Controllers
             ViewData["OfficePropinsiId"] = new SelectList(_context.RefProvinces, "ProvinceId", "ProvinceId", nasabahBadanUsaha.OfficePropinsiId);
             ViewData["BidangUsahaId"] = new SelectList(_context.RefBidangUsahas, "BidangUsahaId", "BidangUsahaId", nasabahBadanUsaha.BidangUsahaId);
             ViewData["JenisBadanUsahaId"] = new SelectList(_context.RefJenisBadanUsahas, "JenisBadanUsahaId", "JenisBadanUsahaId", nasabahBadanUsaha.JenisBadanUsahaId);
+            ViewData["NasabahId"] = id;
             return View(nasabahBadanUsaha);
         }
 
@@ -502,14 +509,121 @@ namespace CoreBPR.Controllers
             return View(results);
         }
 
-
-
-        private bool NasabahPeroranganExists(string id)
+        [Route("Edit/JobnSpouse/{id}")]
+        public async Task<IActionResult> EditJobnSpouse(string id)
         {
-            return _context.Nasabahs.Any(e => e.NasabahId == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var nasabah = await _context.Nasabahs.FindAsync(id);
+            if (nasabah == null)
+            {
+                return NotFound();
+            }
+
+            NasabahJobnSpouse nasabahJobnSpouse = new NasabahJobnSpouse();
+            nasabahJobnSpouse.NasabahId = nasabah.NasabahId;
+            nasabahJobnSpouse.JobTypeId = nasabah.JobTypeId;
+            nasabahJobnSpouse.TempatBekerja = nasabah.TempatBekerja;
+            nasabahJobnSpouse.BidangUsahaId = nasabah.BidangUsahaId;
+            nasabahJobnSpouse.OfficeAddress = nasabah.OfficeAddress;
+            nasabahJobnSpouse.OfficePropinsiId = nasabah.OfficePropinsiId;
+            nasabahJobnSpouse.OfficeKotaId = nasabah.OfficeKotaId;
+            nasabahJobnSpouse.OfficeKecamatan = nasabah.OfficeKecamatan;
+            nasabahJobnSpouse.OfficeKelurahan = nasabah.OfficeKelurahan;
+            nasabahJobnSpouse.OfficeZipCode = nasabah.OfficeZipCode;
+            nasabahJobnSpouse.Income = nasabah.Income;
+            nasabahJobnSpouse.SpouseName = nasabah.SpouseName;
+            nasabahJobnSpouse.SpouseTempatLahir = nasabah.SpouseTempatLahir;
+            nasabahJobnSpouse.SpouseTanggalLahir = nasabah.SpouseTanggalLahir;
+            nasabahJobnSpouse.SpouseJenisIdentityId = nasabah.SpouseJenisIdentityId;
+            nasabahJobnSpouse.SpouseIdentityNo = nasabah.SpouseIdentityNo;
+            nasabahJobnSpouse.SpouseJobTypeId = nasabah.SpouseJobTypeId;
+            nasabahJobnSpouse.NasabahId = nasabah.NasabahId;
+            nasabahJobnSpouse.NasabahId = nasabah.NasabahId;
+            nasabahJobnSpouse.NasabahId = nasabah.NasabahId;
+
+            ViewData["JobTypeId"] = new SelectList(_context.RefJobTypes, "JobTypeId", "JobTypeName", nasabahJobnSpouse.JobTypeId);
+            ViewData["BidangUsahaId"] = new SelectList(_context.RefBidangUsahas, "BidangUsahaId", "BidangUsahaName", nasabahJobnSpouse.BidangUsahaId);
+            ViewData["OfficePropinsiId"] = new SelectList(_context.RefProvinces, "ProvinceId", "ProvinceName", nasabahJobnSpouse.OfficePropinsiId);
+            ViewData["OfficeKotaId"] = new SelectList(_context.RefCities.Where(x => x.ProvinceId == nasabahJobnSpouse.OfficePropinsiId), "CityId", "CityName", nasabahJobnSpouse.OfficeKotaId);
+            ViewData["SpouseJenisIdentityId"] = new SelectList(_context.RefJenisIdentities, "JenisIdentityId", "JenisIdentityName", nasabahJobnSpouse.SpouseJenisIdentityId);
+            ViewData["SpouseJobTypeId"] = new SelectList(_context.RefJobTypes, "JobTypeId", "JobTypeName", nasabahJobnSpouse.SpouseJobTypeId);
+            ViewData["SpouseEducationId"] = new SelectList(_context.RefEducations, "EducationId", "EducationName", nasabahJobnSpouse.SpouseEducationId);
+            ViewData["NasabahId"] = id;
+            return View(nasabahJobnSpouse);
         }
 
-        private bool NasabahBadanUsahaExists(string id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Edit/JobnSpouse/{id}")]
+        public async Task<IActionResult> EditJobnSpouse(string id, NasabahJobnSpouse nasabahJobnSpouse)
+        {
+            if (id != nasabahJobnSpouse.NasabahId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Nasabah nasabah = _context.Nasabahs.Find(id);
+                    nasabah.NasabahId = nasabahJobnSpouse.NasabahId;
+                    nasabah.JobTypeId = nasabahJobnSpouse.JobTypeId;
+                    nasabah.TempatBekerja = nasabahJobnSpouse.TempatBekerja;
+                    nasabah.BidangUsahaId = nasabahJobnSpouse.BidangUsahaId;
+                    nasabah.OfficeAddress = nasabahJobnSpouse.OfficeAddress;
+                    nasabah.OfficePropinsiId = nasabahJobnSpouse.OfficePropinsiId;
+                    nasabah.OfficeKotaId = nasabahJobnSpouse.OfficeKotaId;
+                    nasabah.OfficeKecamatan = nasabahJobnSpouse.OfficeKecamatan;
+                    nasabah.OfficeKelurahan = nasabahJobnSpouse.OfficeKelurahan;
+                    nasabah.OfficeZipCode = nasabahJobnSpouse.OfficeZipCode;
+                    nasabah.Income = nasabahJobnSpouse.Income;
+                    nasabah.SpouseName = nasabahJobnSpouse.SpouseName;
+                    nasabah.SpouseTempatLahir = nasabahJobnSpouse.SpouseTempatLahir;
+                    nasabah.SpouseTanggalLahir = nasabahJobnSpouse.SpouseTanggalLahir;
+                    nasabah.SpouseJenisIdentityId = nasabahJobnSpouse.SpouseJenisIdentityId;
+                    nasabah.SpouseIdentityNo = nasabahJobnSpouse.SpouseIdentityNo;
+                    nasabah.SpouseJobTypeId = nasabahJobnSpouse.SpouseJobTypeId;
+                    nasabah.NasabahId = nasabahJobnSpouse.NasabahId;
+                    nasabah.NasabahId = nasabahJobnSpouse.NasabahId;
+                    nasabah.NasabahId = nasabahJobnSpouse.NasabahId;
+                    nasabah.UpdatedDate = DateTime.Now;
+                    nasabah.UpdatedUserId = User.Identity.Name;
+
+                    _context.Update(nasabah);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NasabahExists(nasabahJobnSpouse.NasabahId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(EditJobnSpouse), new { id = id });
+            }
+            ViewData["JobTypeId"] = new SelectList(_context.RefJobTypes, "JobTypeId", "JobTypeName", nasabahJobnSpouse.JobTypeId);
+            ViewData["BidangUsahaId"] = new SelectList(_context.RefBidangUsahas, "BidangUsahaId", "BidangUsahaName", nasabahJobnSpouse.BidangUsahaId);
+            ViewData["OfficePropinsiId"] = new SelectList(_context.RefProvinces, "ProvinceId", "ProvinceName", nasabahJobnSpouse.OfficePropinsiId);
+            ViewData["OfficeKotaId"] = new SelectList(_context.RefCities.Where(x => x.ProvinceId == nasabahJobnSpouse.OfficePropinsiId), "CityId", "CityName", nasabahJobnSpouse.OfficeKotaId);
+            ViewData["SpouseJenisIdentityId"] = new SelectList(_context.RefJenisIdentities, "JenisIdentityId", "JenisIdentityName", nasabahJobnSpouse.SpouseJenisIdentityId);
+            ViewData["SpouseJobTypeId"] = new SelectList(_context.RefJobTypes, "JobTypeId", "JobTypeName", nasabahJobnSpouse.SpouseJobTypeId);
+            ViewData["SpouseEducationId"] = new SelectList(_context.RefEducations, "EducationId", "EducationName", nasabahJobnSpouse.SpouseEducationId);
+            ViewData["NasabahId"] = id;
+            return View(nasabahJobnSpouse);
+        }
+
+
+
+        private bool NasabahExists(string id)
         {
             return _context.Nasabahs.Any(e => e.NasabahId == id);
         }

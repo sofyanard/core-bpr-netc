@@ -1,0 +1,143 @@
+﻿@model CoreBPR.Models.NasabahJobnSpouse
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-action="EditPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Perorangan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Pekerjaan dan Pasangan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Data .....</a>
+    </li>
+</ul>
+
+<p>
+    <form asp-action="EditJobnSpouse">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="NasabahId" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="JobTypeId" class="control-label"></label>
+                    <select asp-for="JobTypeId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.JobTypeId"></select>
+                    <span asp-validation-for="JobTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TempatBekerja" class="control-label"></label>
+                    <input asp-for="TempatBekerja" class="form-control" />
+                    <span asp-validation-for="TempatBekerja" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BidangUsahaId" class="control-label"></label>
+                    <select asp-for="BidangUsahaId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.BidangUsahaId"></select>
+                    <span asp-validation-for="BidangUsahaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficeAddress" class="control-label"></label>
+                    <input asp-for="OfficeAddress" class="form-control" />
+                    <span asp-validation-for="OfficeAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficePropinsiId" class="control-label"></label>
+                    <select asp-for="OfficePropinsiId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.OfficePropinsiId"></select>
+                    <span asp-validation-for="OfficePropinsiId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficeKotaId" class="control-label"></label>
+                    <select asp-for="OfficeKotaId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.OfficeKotaId"></select>
+                    <span asp-validation-for="OfficeKotaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficeKecamatan" class="control-label"></label>
+                    <input asp-for="OfficeKecamatan" class="form-control" />
+                    <span asp-validation-for="OfficeKecamatan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficeKelurahan" class="control-label"></label>
+                    <input asp-for="OfficeKelurahan" class="form-control" />
+                    <span asp-validation-for="OfficeKelurahan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficeZipCode" class="control-label"></label>
+                    <input asp-for="OfficeZipCode" class="form-control" />
+                    <span asp-validation-for="OfficeZipCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfficePhone" class="control-label"></label>
+                    <input asp-for="OfficePhone" class="form-control" />
+                    <span asp-validation-for="OfficePhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Income" class="control-label"></label>
+                    <input asp-for="Income" class="form-control" />
+                    <span asp-validation-for="Income" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="SpouseName" class="control-label"></label>
+                    <input asp-for="SpouseName" class="form-control" />
+                    <span asp-validation-for="SpouseName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpouseTempatLahir" class="control-label"></label>
+                    <input asp-for="SpouseTempatLahir" class="form-control" />
+                    <span asp-validation-for="SpouseTempatLahir" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpouseTanggalLahir" class="control-label"></label>
+                    <input asp-for="SpouseTanggalLahir" class="form-control" />
+                    <span asp-validation-for="SpouseTanggalLahir" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpouseJenisIdentityId" class="control-label"></label>
+                    <select asp-for="SpouseJenisIdentityId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.SpouseJenisIdentityId"></select>
+                    <span asp-validation-for="SpouseJenisIdentityId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpouseIdentityNo" class="control-label"></label>
+                    <input asp-for="SpouseIdentityNo" class="form-control" />
+                    <span asp-validation-for="SpouseIdentityNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpouseJobTypeId" class="control-label"></label>
+                    <select asp-for="SpouseJobTypeId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.SpouseJobTypeId"></select>
+                    <span asp-validation-for="SpouseJobTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SpouseEducationId" class="control-label"></label>
+                    <select asp-for="SpouseEducationId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.SpouseEducationId"></select>
+                    <span asp-validation-for="SpouseEducationId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $('#OfficePropinsiId').change(function () {
+                $.ajax({
+                    url: '../../../api/parameter/citiesbyprovince/' + $('#OfficePropinsiId').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#OfficeKotaId').empty();
+                        $.each(result, function () {
+                            $('#OfficeKotaId').append($("<option />").val(this.cityId).text(this.cityName));
+                        });
+                        $('#OfficeKotaId').selectpicker('refresh');
+                    }
+                });
+            });
+        });
+    </script>
+}
