@@ -20,9 +20,10 @@ namespace CoreBPR.Controllers
         }
 
         // GET: RefUnit
-        public async Task<IActionResult> Index(string sort, string city, string nama, int pageNumber = 1)
+        public async Task<IActionResult> Index(string sort, string prov, string city, string nama, int pageNumber = 1)
         {
-            ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName", city);
+            ViewData["ProvinceId"] = new SelectList(_context.RefProvinces.OrderBy(x => x.ProvinceId), "ProvinceId", "ProvinceName", prov);
+            ViewData["CityId"] = new SelectList(_context.RefCities.Where(x => x.ProvinceId == prov).OrderBy(x => x.CityId), "CityId", "CityName", city);
 
             ViewData["sort"] = sort;
             ViewData["city"] = city;
@@ -33,6 +34,11 @@ namespace CoreBPR.Controllers
 
             var units = from s in _context.RefUnits
                          select s;
+
+            if (!String.IsNullOrEmpty(prov))
+            {
+                units = units.Where(s => s.ProvinceId == prov);
+            }
 
             if (!String.IsNullOrEmpty(city))
             {
@@ -95,7 +101,8 @@ namespace CoreBPR.Controllers
         // GET: RefUnit/Create
         public IActionResult Create()
         {
-            ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName");
+            ViewData["ProvinceId"] = new SelectList(_context.RefProvinces.OrderBy(x => x.ProvinceId), "ProvinceId", "ProvinceName");
+            // ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName");
             return View();
         }
 
@@ -104,7 +111,7 @@ namespace CoreBPR.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UnitId,UnitName,KodeBPR,Address,CityId,IsActive")] RefUnit refUnit)
+        public async Task<IActionResult> Create([Bind("UnitId,UnitName,KodeBPR,Address,ProvinceId,CityId,IsActive")] RefUnit refUnit)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +119,8 @@ namespace CoreBPR.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName", refUnit.CityId);
+            ViewData["ProvinceId"] = new SelectList(_context.RefProvinces.OrderBy(x => x.ProvinceId), "ProvinceId", "ProvinceName", refUnit.ProvinceId);
+            // ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName", refUnit.CityId);
             return View(refUnit);
         }
 
@@ -129,7 +137,8 @@ namespace CoreBPR.Controllers
             {
                 return NotFound();
             }
-            ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName", refUnit.CityId);
+            ViewData["ProvinceId"] = new SelectList(_context.RefProvinces.OrderBy(x => x.ProvinceId), "ProvinceId", "ProvinceName", refUnit.ProvinceId);
+            ViewData["CityId"] = new SelectList(_context.RefCities.Where(x => x.ProvinceId == refUnit.ProvinceId).OrderBy(x => x.CityId), "CityId", "CityName", refUnit.CityId);
             return View(refUnit);
         }
 
@@ -138,7 +147,7 @@ namespace CoreBPR.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UnitId,UnitName,KodeBPR,Address,CityId,IsActive")] RefUnit refUnit)
+        public async Task<IActionResult> Edit(string id, [Bind("UnitId,UnitName,KodeBPR,Address,ProvinceId,CityId,IsActive")] RefUnit refUnit)
         {
             if (id != refUnit.UnitId)
             {
@@ -165,7 +174,8 @@ namespace CoreBPR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName", refUnit.CityId);
+            ViewData["ProvinceId"] = new SelectList(_context.RefProvinces.OrderBy(x => x.ProvinceId), "ProvinceId", "ProvinceName", refUnit.ProvinceId);
+            ViewData["CityId"] = new SelectList(_context.RefCities.Where(x => x.ProvinceId == refUnit.ProvinceId).OrderBy(x => x.CityId), "CityId", "CityName", refUnit.CityId);
             return View(refUnit);
         }
 

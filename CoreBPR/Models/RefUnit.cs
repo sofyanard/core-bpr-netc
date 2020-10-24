@@ -29,6 +29,12 @@ namespace CoreBPR.Models
         [StringLength(100)]
         public string Address { get; set; }
 
+        [Column("ProvinceId")]
+        public string ProvinceId { get; set; }
+
+        [ForeignKey("ProvinceId")]
+        public virtual RefProvince RefProvince { get; set; }
+
         [Column("CityId")]
         public string CityId { get; set; }
 

@@ -17,24 +17,31 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label for="prov" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].RefCity.CityName)</label>
+                    <label for="prov" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].RefProvince.ProvinceName)</label>
                     <div class="col-sm-8">
-                        <select class="selectpicker form-control" data-live-search="true" name="city" asp-items="ViewBag.CityId">
+                        <select class="selectpicker form-control" data-live-search="true" name="prov" id="prov" asp-items="ViewBag.ProvinceId">
                             <option value="">-</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-
+                <div class="form-group row">
+                    <label for="SearchString" class="col-sm-4 col-form-label">Find name or address</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="nama" value="@ViewData["nama"]" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label for="SearchString" class="col-sm-4 col-form-label">Find name or address</label>
+                    <label for="prov" class="col-sm-4 col-form-label">@Html.DisplayNameFor(model => model.Data[0].RefCity.CityName)</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="nama" value="@ViewData["nama"]" />
+                        <select class="selectpicker form-control" data-live-search="true" name="city" id="city" asp-items="ViewBag.CityId">
+                            <option value="">-</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -77,34 +84,57 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Data) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KodeBPR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RefCity.CityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UnitId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UnitId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UnitId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KodeBPR)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefCity.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UnitId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UnitId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UnitId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
 <partial name="_PaginationPartial" model="Model" view-data="ViewData" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $('#prov').change(function () {
+                $.ajax({
+                    url: '../../api/parameter/citiesbyprovince/' + $('#prov').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#city').empty();
+                        $.each(result, function () {
+                            $('#city').append($("<option />").val(this.cityId).text(this.cityName));
+                        });
+                        $('#city').selectpicker('refresh');
+                    }
+                });
+            });
+        });
+    </script>
+}
