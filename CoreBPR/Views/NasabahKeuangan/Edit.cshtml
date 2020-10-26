@@ -1,0 +1,173 @@
+﻿@model CoreBPR.Models.NasabahKeuangan
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["nasabahId"]">Data Nasabah Badan Usaha</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@ViewData["NasabahId"]">Data Pengurus Perusahaan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Laporan Keuangan</a>
+    </li>
+</ul>
+<br />
+
+<p>
+    <form asp-action="Edit" asp-route-nasabahId="@ViewData["nasabahId"]">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="KeuanganId" />
+        <input type="hidden" asp-for="NasabahId" value="@ViewData["nasabahId"]" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Periode" class="control-label"></label>
+                    <input asp-for="Periode" class="form-control" />
+                    <span asp-validation-for="Periode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col"><h4>ASET</h4></div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kas" class="control-label"></label>
+                    <input asp-for="Kas" class="form-control" />
+                    <span asp-validation-for="Kas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Piutang" class="control-label"></label>
+                    <input asp-for="Piutang" class="form-control" />
+                    <span asp-validation-for="Piutang" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Investasi" class="control-label"></label>
+                    <input asp-for="Investasi" class="form-control" />
+                    <span asp-validation-for="Investasi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AsetLancarLain" class="control-label"></label>
+                    <input asp-for="AsetLancarLain" class="form-control" />
+                    <span asp-validation-for="AsetLancarLain" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AsetTidakLancar" class="control-label"></label>
+                    <input asp-for="AsetTidakLancar" class="form-control" />
+                    <span asp-validation-for="AsetTidakLancar" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col"><h4>MODAL</h4></div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Modal" class="control-label"></label>
+                    <input asp-for="Modal" class="form-control" />
+                    <span asp-validation-for="Modal" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col"><h4>LIABILITAS</h4></div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PinjamanPendek" class="control-label"></label>
+                    <input asp-for="PinjamanPendek" class="form-control" />
+                    <span asp-validation-for="PinjamanPendek" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UtangUsahaPendek" class="control-label"></label>
+                    <input asp-for="UtangUsahaPendek" class="form-control" />
+                    <span asp-validation-for="UtangUsahaPendek" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LiabilitasPendekLain" class="control-label"></label>
+                    <input asp-for="LiabilitasPendekLain" class="form-control" />
+                    <span asp-validation-for="LiabilitasPendekLain" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PinjamanPanjang" class="control-label"></label>
+                    <input asp-for="PinjamanPanjang" class="form-control" />
+                    <span asp-validation-for="PinjamanPanjang" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UtangUsahaPanjang" class="control-label"></label>
+                    <input asp-for="UtangUsahaPanjang" class="form-control" />
+                    <span asp-validation-for="UtangUsahaPanjang" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LiabilitasPanjangLain" class="control-label"></label>
+                    <input asp-for="LiabilitasPanjangLain" class="form-control" />
+                    <span asp-validation-for="LiabilitasPanjangLain" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div><br /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col"><h4>LABA RUGI</h4></div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PendapatanOperasi" class="control-label"></label>
+                    <input asp-for="PendapatanOperasi" class="form-control" />
+                    <span asp-validation-for="PendapatanOperasi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BebanOperasi" class="control-label"></label>
+                    <input asp-for="BebanOperasi" class="form-control" />
+                    <span asp-validation-for="BebanOperasi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PendapatanNonOperasi" class="control-label"></label>
+                    <input asp-for="PendapatanNonOperasi" class="form-control" />
+                    <span asp-validation-for="PendapatanNonOperasi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BebanNonOperasi" class="control-label"></label>
+                    <input asp-for="BebanNonOperasi" class="form-control" />
+                    <span asp-validation-for="BebanNonOperasi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LabaBruto" class="control-label"></label>
+                    <input asp-for="LabaBruto" class="form-control" />
+                    <span asp-validation-for="LabaBruto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LabaSebelumPajak" class="control-label"></label>
+                    <input asp-for="LabaSebelumPajak" class="form-control" />
+                    <span asp-validation-for="LabaSebelumPajak" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LabaTahunBerjalan" class="control-label"></label>
+                    <input asp-for="LabaTahunBerjalan" class="form-control" />
+                    <span asp-validation-for="LabaTahunBerjalan" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+<div>
+    <a asp-action="Index" asp-route-nasabahId="@ViewData["nasabahId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

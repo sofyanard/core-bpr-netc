@@ -40,7 +40,8 @@ namespace CoreBPR.Models
         public DbSet<RefCIFGenerator> RefCIFGenerators { get; set; }
         public DbSet<RefJabatan> RefJabatans { get; set; }
         public DbSet<RefGenderPlus> RefGenderPluses { get; set; }
-        public DbSet<CoreBPR.Models.NasabahPengurus> NasabahPengurus { get; set; }
+        public DbSet<NasabahPengurus> NasabahPengurus { get; set; }
+        public DbSet<NasabahKeuangan> NasabahKeuangans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

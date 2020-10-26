@@ -10,7 +10,10 @@
         <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@Model.NasabahId">Data Pengurus Perusahaan</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporBadanUsaha" asp-route-id="@Model.NasabahId">Data Pelaporan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="NasabahKeuangan" asp-action="Index" asp-route-id="@Model.NasabahId">Data Laporan Keuangan</a>
     </li>
 </ul>
 

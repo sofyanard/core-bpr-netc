@@ -4,13 +4,16 @@
 <hr />
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["nasabahId"]">Data Nasabah Badan Usaha</a>
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@Model.NasabahId">Data Nasabah Badan Usaha</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@Model.NasabahId">Data Pengurus Perusahaan</a>
     </li>
     <li class="nav-item">
         <a class="nav-link active" href="#">Data Pelaporan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="NasabahKeuangan" asp-action="Index" asp-route-id="@Model.NasabahId">Data Laporan Keuangan</a>
     </li>
 </ul>
 

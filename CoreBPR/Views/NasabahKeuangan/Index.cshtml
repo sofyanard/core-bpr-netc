@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CoreBPR.Models.NasabahKeuangan>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["nasabahId"]">Data Nasabah Badan Usaha</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@ViewData["NasabahId"]">Data Pengurus Perusahaan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Laporan Keuangan</a>
+    </li>
+</ul>
+<br />
+
+<p>
+    <a asp-action="Create" asp-route-nasabahId="@ViewData["nasabahId"]">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Periode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Periode)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-nasabahId="@ViewData["nasabahId"]" asp-route-id="@item.KeuanganId">Edit</a> |
+                    <form asp-action="Delete" asp-route-nasabahId="@ViewData["nasabahId"]" asp-route-id="@item.KeuanganId">
+                        <input type="submit" value="Delete" class="btn btn-link" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
