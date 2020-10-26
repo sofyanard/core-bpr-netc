@@ -1,0 +1,90 @@
+﻿@model CoreBPR.Models.NasabahLaporBadanUsaha
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["nasabahId"]">Data Nasabah Badan Usaha</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@Model.NasabahId">Data Pengurus Perusahaan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Pelaporan</a>
+    </li>
+</ul>
+
+<p>
+    <form asp-action="EditLaporBadanUsaha">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="NasabahId" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NamaPelaporan" class="control-label"></label>
+                    <input asp-for="NamaPelaporan" class="form-control" />
+                    <span asp-validation-for="NamaPelaporan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GolonganNasabahId" class="control-label"></label>
+                    <select asp-for="GolonganNasabahId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.GolonganNasabahId"></select>
+                    <span asp-validation-for="GolonganNasabahId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HubunganBankId" class="control-label"></label>
+                    <select asp-for="HubunganBankId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.HubunganBankId"></select>
+                    <span asp-validation-for="HubunganBankId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SourceIncomeId" class="control-label"></label>
+                    <select asp-for="SourceIncomeId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.SourceIncomeId"></select>
+                    <span asp-validation-for="SourceIncomeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BMPKLebih" class="control-label"></label>
+                    <select asp-for="BMPKLebih" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.BMPKLebih"></select>
+                    <span asp-validation-for="BMPKLebih" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BMPKLampaui" class="control-label"></label>
+                    <select asp-for="BMPKLampaui" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.BMPKLampaui"></select>
+                    <span asp-validation-for="BMPKLampaui" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="GoPublic" class="control-label"></label>
+                    <select asp-for="GoPublic" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.GoPublic"></select>
+                    <span asp-validation-for="GoPublic" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Peringkat" class="control-label"></label>
+                    <input asp-for="Peringkat" class="form-control" />
+                    <span asp-validation-for="Peringkat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LembagaRatingId" class="control-label"></label>
+                    <select asp-for="LembagaRatingId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.LembagaRatingId"></select>
+                    <span asp-validation-for="LembagaRatingId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TanggalRating" class="control-label"></label>
+                    <input asp-for="TanggalRating" class="form-control" />
+                    <span asp-validation-for="TanggalRating" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GroupUsaha" class="control-label"></label>
+                    <input asp-for="GroupUsaha" class="form-control" />
+                    <span asp-validation-for="GroupUsaha" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

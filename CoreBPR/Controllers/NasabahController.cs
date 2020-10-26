@@ -621,6 +621,184 @@ namespace CoreBPR.Controllers
             return View(nasabahJobnSpouse);
         }
 
+        [Route("Edit/LaporPerorangan/{id}")]
+        public async Task<IActionResult> EditLaporPerorangan(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var nasabah = await _context.Nasabahs.FindAsync(id);
+            if (nasabah == null)
+            {
+                return NotFound();
+            }
+
+            NasabahLaporPerorangan nasabahLaporPerorangan = new NasabahLaporPerorangan();
+            nasabahLaporPerorangan.NasabahId = nasabah.NasabahId;
+            nasabahLaporPerorangan.NamaPelaporan = nasabah.NamaPelaporan;
+            nasabahLaporPerorangan.GolonganNasabahId = nasabah.GolonganNasabahId;
+            nasabahLaporPerorangan.HubunganBankId = nasabah.HubunganBankId;
+            nasabahLaporPerorangan.SourceIncomeId = nasabah.SourceIncomeId;
+            nasabahLaporPerorangan.BMPKLebih = nasabah.BMPKLebih;
+            nasabahLaporPerorangan.BMPKLampaui = nasabah.BMPKLampaui;
+
+            ViewData["GolonganNasabahId"] = new SelectList(_context.RefGolonganNasabahs, "GolonganNasabahId", "GolonganNasabahName", nasabahLaporPerorangan.GolonganNasabahId);
+            ViewData["HubunganBankId"] = new SelectList(_context.RefHubunganBanks, "HubunganBankId", "HubunganBankName", nasabahLaporPerorangan.HubunganBankId);
+            ViewData["SourceIncomeId"] = new SelectList(_context.RefSourceIncomes, "SourceIncomeId", "SourceIncomeName", nasabahLaporPerorangan.SourceIncomeId);
+            ViewData["BMPKLebih"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporPerorangan.BMPKLebih);
+            ViewData["BMPKLampaui"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporPerorangan.BMPKLampaui);
+            ViewData["NasabahId"] = id;
+            return View(nasabahLaporPerorangan);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Edit/LaporPerorangan/{id}")]
+        public async Task<IActionResult> EditLaporPerorangan(string id, NasabahLaporPerorangan nasabahLaporPerorangan)
+        {
+            if (id != nasabahLaporPerorangan.NasabahId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Nasabah nasabah = _context.Nasabahs.Find(id);
+                    nasabah.NasabahId = nasabahLaporPerorangan.NasabahId;
+                    nasabah.NamaPelaporan = nasabahLaporPerorangan.NamaPelaporan;
+                    nasabah.GolonganNasabahId = nasabahLaporPerorangan.GolonganNasabahId;
+                    nasabah.HubunganBankId = nasabahLaporPerorangan.HubunganBankId;
+                    nasabah.SourceIncomeId = nasabahLaporPerorangan.SourceIncomeId;
+                    nasabah.BMPKLebih = nasabahLaporPerorangan.BMPKLebih;
+                    nasabah.BMPKLampaui = nasabahLaporPerorangan.BMPKLampaui;
+                    nasabah.UpdatedDate = DateTime.Now;
+                    nasabah.UpdatedUserId = User.Identity.Name;
+
+                    _context.Update(nasabah);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NasabahExists(nasabahLaporPerorangan.NasabahId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(EditLaporPerorangan), new { id = id });
+            }
+            ViewData["GolonganNasabahId"] = new SelectList(_context.RefGolonganNasabahs, "GolonganNasabahId", "GolonganNasabahName", nasabahLaporPerorangan.GolonganNasabahId);
+            ViewData["HubunganBankId"] = new SelectList(_context.RefHubunganBanks, "HubunganBankId", "HubunganBankName", nasabahLaporPerorangan.HubunganBankId);
+            ViewData["SourceIncomeId"] = new SelectList(_context.RefSourceIncomes, "SourceIncomeId", "SourceIncomeName", nasabahLaporPerorangan.SourceIncomeId);
+            ViewData["BMPKLebih"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporPerorangan.BMPKLebih);
+            ViewData["BMPKLampaui"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporPerorangan.BMPKLampaui);
+            ViewData["NasabahId"] = id;
+            return View(nasabahLaporPerorangan);
+        }
+
+        [Route("Edit/LaporBadanUsaha/{id}")]
+        public async Task<IActionResult> EditLaporBadanUsaha(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var nasabah = await _context.Nasabahs.FindAsync(id);
+            if (nasabah == null)
+            {
+                return NotFound();
+            }
+
+            NasabahLaporBadanUsaha nasabahLaporBadanUsaha = new NasabahLaporBadanUsaha();
+            nasabahLaporBadanUsaha.NasabahId = nasabah.NasabahId;
+            nasabahLaporBadanUsaha.NamaPelaporan = nasabah.NamaPelaporan;
+            nasabahLaporBadanUsaha.GolonganNasabahId = nasabah.GolonganNasabahId;
+            nasabahLaporBadanUsaha.HubunganBankId = nasabah.HubunganBankId;
+            nasabahLaporBadanUsaha.SourceIncomeId = nasabah.SourceIncomeId;
+            nasabahLaporBadanUsaha.BMPKLebih = nasabah.BMPKLebih;
+            nasabahLaporBadanUsaha.BMPKLampaui = nasabah.BMPKLampaui;
+            nasabahLaporBadanUsaha.GoPublic = nasabah.GoPublic;
+            nasabahLaporBadanUsaha.Peringkat = nasabah.Peringkat;
+            nasabahLaporBadanUsaha.LembagaRatingId = nasabah.LembagaRatingId;
+            nasabahLaporBadanUsaha.TanggalRating = nasabah.TanggalRating;
+            nasabahLaporBadanUsaha.GroupUsaha = nasabah.GroupUsaha;
+
+            ViewData["GolonganNasabahId"] = new SelectList(_context.RefGolonganNasabahs, "GolonganNasabahId", "GolonganNasabahName", nasabahLaporBadanUsaha.GolonganNasabahId);
+            ViewData["HubunganBankId"] = new SelectList(_context.RefHubunganBanks, "HubunganBankId", "HubunganBankName", nasabahLaporBadanUsaha.HubunganBankId);
+            ViewData["SourceIncomeId"] = new SelectList(_context.RefSourceIncomes, "SourceIncomeId", "SourceIncomeName", nasabahLaporBadanUsaha.SourceIncomeId);
+            ViewData["BMPKLebih"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporBadanUsaha.BMPKLebih);
+            ViewData["BMPKLampaui"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporBadanUsaha.BMPKLampaui);
+            ViewData["GoPublic"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporBadanUsaha.GoPublic);
+            ViewData["LembagaRatingId"] = new SelectList(_context.RefLembagaRatings, "LembagaRatingId", "LembagaRatingName", nasabahLaporBadanUsaha.LembagaRatingId);
+            ViewData["NasabahId"] = id;
+            return View(nasabahLaporBadanUsaha);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Edit/LaporBadanUsaha/{id}")]
+        public async Task<IActionResult> EditLaporBadanUsaha(string id, NasabahLaporBadanUsaha nasabahLaporBadanUsaha)
+        {
+            if (id != nasabahLaporBadanUsaha.NasabahId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Nasabah nasabah = _context.Nasabahs.Find(id);
+                    nasabah.NasabahId = nasabahLaporBadanUsaha.NasabahId;
+                    nasabah.NamaPelaporan = nasabahLaporBadanUsaha.NamaPelaporan;
+                    nasabah.GolonganNasabahId = nasabahLaporBadanUsaha.GolonganNasabahId;
+                    nasabah.HubunganBankId = nasabahLaporBadanUsaha.HubunganBankId;
+                    nasabah.SourceIncomeId = nasabahLaporBadanUsaha.SourceIncomeId;
+                    nasabah.BMPKLebih = nasabahLaporBadanUsaha.BMPKLebih;
+                    nasabah.BMPKLampaui = nasabahLaporBadanUsaha.BMPKLampaui;
+                    nasabah.GoPublic = nasabahLaporBadanUsaha.GoPublic;
+                    nasabah.Peringkat = nasabahLaporBadanUsaha.Peringkat;
+                    nasabah.LembagaRatingId = nasabahLaporBadanUsaha.LembagaRatingId;
+                    nasabah.TanggalRating = nasabahLaporBadanUsaha.TanggalRating;
+                    nasabah.GroupUsaha = nasabahLaporBadanUsaha.GroupUsaha;
+                    nasabah.UpdatedDate = DateTime.Now;
+                    nasabah.UpdatedUserId = User.Identity.Name;
+
+                    _context.Update(nasabah);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NasabahExists(nasabahLaporBadanUsaha.NasabahId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(EditLaporBadanUsaha), new { id = id });
+            }
+            ViewData["GolonganNasabahId"] = new SelectList(_context.RefGolonganNasabahs, "GolonganNasabahId", "GolonganNasabahName", nasabahLaporBadanUsaha.GolonganNasabahId);
+            ViewData["HubunganBankId"] = new SelectList(_context.RefHubunganBanks, "HubunganBankId", "HubunganBankName", nasabahLaporBadanUsaha.HubunganBankId);
+            ViewData["SourceIncomeId"] = new SelectList(_context.RefSourceIncomes, "SourceIncomeId", "SourceIncomeName", nasabahLaporBadanUsaha.SourceIncomeId);
+            ViewData["BMPKLebih"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporBadanUsaha.BMPKLebih);
+            ViewData["BMPKLampaui"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporBadanUsaha.BMPKLampaui);
+            ViewData["GoPublic"] = new SelectList(_context.RefYesNos, "YesNoId", "YesNoName", nasabahLaporBadanUsaha.GoPublic);
+            ViewData["LembagaRatingId"] = new SelectList(_context.RefLembagaRatings, "LembagaRatingId", "LembagaRatingName", nasabahLaporBadanUsaha.LembagaRatingId);
+            ViewData["NasabahId"] = id;
+            return View(nasabahLaporBadanUsaha);
+        }
+
         private bool NasabahExists(string id)
         {
             return _context.Nasabahs.Any(e => e.NasabahId == id);

@@ -1,0 +1,66 @@
+﻿@model CoreBPR.Models.NasabahLaporPerorangan
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-action="EditPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Perorangan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="EditJobnSpouse" asp-route-id="@ViewData["NasabahId"]">Data Pekerjaan dan Pasangan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Pelaporan</a>
+    </li>
+</ul>
+
+<p>
+    <form asp-action="EditLaporPerorangan">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="NasabahId" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NamaPelaporan" class="control-label"></label>
+                    <input asp-for="NamaPelaporan" class="form-control" />
+                    <span asp-validation-for="NamaPelaporan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GolonganNasabahId" class="control-label"></label>
+                    <select asp-for="GolonganNasabahId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.GolonganNasabahId"></select>
+                    <span asp-validation-for="GolonganNasabahId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HubunganBankId" class="control-label"></label>
+                    <select asp-for="HubunganBankId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.HubunganBankId"></select>
+                    <span asp-validation-for="HubunganBankId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SourceIncomeId" class="control-label"></label>
+                    <select asp-for="SourceIncomeId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.SourceIncomeId"></select>
+                    <span asp-validation-for="SourceIncomeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BMPKLebih" class="control-label"></label>
+                    <select asp-for="BMPKLebih" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.BMPKLebih"></select>
+                    <span asp-validation-for="BMPKLebih" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BMPKLampaui" class="control-label"></label>
+                    <select asp-for="BMPKLampaui" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.BMPKLampaui"></select>
+                    <span asp-validation-for="BMPKLampaui" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

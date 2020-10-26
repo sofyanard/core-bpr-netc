@@ -765,4 +765,126 @@ namespace CoreBPR.Models
         [ForeignKey("SpouseEducationId")]
         public virtual RefEducation SpouseRefEducation { get; set; }
     }
+
+    public class NasabahLaporPerorangan
+    {
+        [Key]
+        [StringLength(20)]
+        [Display(Name = "No Nasabah")]
+        public string NasabahId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Nama Pelaporan")]
+        public string NamaPelaporan { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Golongan Nasabah")]
+        public string GolonganNasabahId { get; set; }
+
+        [ForeignKey("GolonganNasabahId")]
+        public virtual RefGolonganNasabah RefGolonganNasabah { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Hubungan Dengan Bank")]
+        public string HubunganBankId { get; set; }
+
+        [ForeignKey("HubunganBankId")]
+        public virtual RefHubunganBank RefHubunganBank { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Sumber Penghasilan")]
+        public string SourceIncomeId { get; set; }
+
+        [ForeignKey("SourceIncomeId")]
+        public virtual RefSourceIncome RefSourceIncome { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "BMPK Lebih")]
+        public string BMPKLebih { get; set; }
+
+        [ForeignKey("BMPKLebih")]
+        public virtual RefYesNo BMPKLebihRefYesNo { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "BMPK Lampaui")]
+        public string BMPKLampaui { get; set; }
+
+        [ForeignKey("BMPKLampaui")]
+        public virtual RefYesNo BMPKLampauiRefYesNo { get; set; }
+    }
+
+    public class NasabahLaporBadanUsaha
+    {
+        [Key]
+        [StringLength(20)]
+        [Display(Name = "No Nasabah")]
+        public string NasabahId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Nama Pelaporan")]
+        public string NamaPelaporan { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Golongan Nasabah")]
+        public string GolonganNasabahId { get; set; }
+
+        [ForeignKey("GolonganNasabahId")]
+        public virtual RefGolonganNasabah RefGolonganNasabah { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Hubungan Dengan Bank")]
+        public string HubunganBankId { get; set; }
+
+        [ForeignKey("HubunganBankId")]
+        public virtual RefHubunganBank RefHubunganBank { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Sumber Penghasilan")]
+        public string SourceIncomeId { get; set; }
+
+        [ForeignKey("SourceIncomeId")]
+        public virtual RefSourceIncome RefSourceIncome { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "BMPK Lebih")]
+        public string BMPKLebih { get; set; }
+
+        [ForeignKey("BMPKLebih")]
+        public virtual RefYesNo BMPKLebihRefYesNo { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "BMPK Lampaui")]
+        public string BMPKLampaui { get; set; }
+
+        [ForeignKey("BMPKLampaui")]
+        public virtual RefYesNo BMPKLampauiRefYesNo { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Go Public")]
+        public string GoPublic { get; set; }
+
+        [ForeignKey("GoPublic")]
+        public virtual RefYesNo GoPublicRefYesNo { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Rating")]
+        public string Peringkat { get; set; }
+
+        [StringLength(10)]
+        [Display(Name = "Lembaga Rating")]
+        public string LembagaRatingId { get; set; }
+
+        [ForeignKey("LembagaRatingId")]
+        public virtual RefLembagaRating RefLembagaRating { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Tanggal Rating")]
+        public DateTime? TanggalRating { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Group Usaha")]
+        public string GroupUsaha { get; set; }
+    }
 }
