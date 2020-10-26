@@ -344,7 +344,7 @@ namespace CoreBPR.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit/BadanUsaha/{id}")]
-        public async Task<IActionResult> Edit(string id, NasabahBadanUsaha nasabahBadanUsaha)
+        public async Task<IActionResult> EditBadanUsaha(string id, NasabahBadanUsaha nasabahBadanUsaha)
         {
             if (id != nasabahBadanUsaha.NasabahId)
             {
@@ -620,8 +620,6 @@ namespace CoreBPR.Controllers
             ViewData["NasabahId"] = id;
             return View(nasabahJobnSpouse);
         }
-
-
 
         private bool NasabahExists(string id)
         {

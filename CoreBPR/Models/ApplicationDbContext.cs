@@ -38,12 +38,13 @@ namespace CoreBPR.Models
         public DbSet<RefLembagaRating> RefLembagaRatings { get; set; }
         public DbSet<Nasabah> Nasabahs { get; set; }
         public DbSet<RefCIFGenerator> RefCIFGenerators { get; set; }
+        public DbSet<RefJabatan> RefJabatans { get; set; }
+        public DbSet<RefGenderPlus> RefGenderPluses { get; set; }
+        public DbSet<CoreBPR.Models.NasabahPengurus> NasabahPengurus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
         }
-
-        public DbSet<CoreBPR.Models.NasabahJobnSpouse> NasabahJobnSpouse { get; set; }
     }
 }

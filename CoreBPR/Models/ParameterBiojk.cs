@@ -105,4 +105,15 @@ namespace CoreBPR.Models
         [Column("LembagaRatingName")]
         public string LembagaRatingName { get; set; }
     }
+
+    [Table("RefJabatan")]
+    public class RefJabatan
+    {
+        [Key]
+        [Column("JabatanId")]
+        public string JabatanId { get; set; }
+
+        [Column("JabatanName")]
+        public string JabatanName { get; set; }
+    }
 }

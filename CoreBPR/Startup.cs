@@ -75,6 +75,10 @@ namespace CoreBPR
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "parentchild",
+                    pattern: "{controller=Home}/{parentaction=Index}/{parentid?}/{childaction=Index}/{childid?}");
             });
         }
     }

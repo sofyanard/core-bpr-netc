@@ -1,0 +1,128 @@
+﻿@model CoreBPR.Models.NasabahPengurus
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["nasabahId"]">Data Nasabah Badan Usaha</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Pengurus Perusahaan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Data .....</a>
+    </li>
+</ul>
+<br />
+
+<p>
+    <form asp-action="Edit" asp-route-nasabahId="@ViewData["nasabahId"]">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PengurusId" />
+        <input type="hidden" asp-for="NasabahId" value="@ViewData["nasabahId"]" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PengurusName" class="control-label"></label>
+                    <input asp-for="PengurusName" class="form-control" />
+                    <span asp-validation-for="PengurusName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GenderPlusId" class="control-label"></label>
+                    <select asp-for="GenderPlusId" class="form-control" asp-items="ViewBag.GenderPlusId"></select>
+                    <span asp-validation-for="GenderPlusId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JabatanId" class="control-label"></label>
+                    <select asp-for="JabatanId" class="form-control" asp-items="ViewBag.JabatanId"></select>
+                    <span asp-validation-for="JabatanId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PercentSaham" class="control-label"></label>
+                    <input asp-for="PercentSaham" class="form-control" />
+                    <span asp-validation-for="PercentSaham" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JenisIdentityId" class="control-label"></label>
+                    <select asp-for="JenisIdentityId" class="form-control" asp-items="ViewBag.JenisIdentityId"></select>
+                    <span asp-validation-for="JenisIdentityId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdentityNo" class="control-label"></label>
+                    <input asp-for="IdentityNo" class="form-control" />
+                    <span asp-validation-for="IdentityNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ZipCode" class="control-label"></label>
+                    <input asp-for="ZipCode" class="form-control" />
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PropinsiId" class="control-label"></label>
+                    <select asp-for="PropinsiId" class="form-control" asp-items="ViewBag.PropinsiId"></select>
+                    <span asp-validation-for="PropinsiId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="KotaId" class="control-label"></label>
+                    <select asp-for="KotaId" class="form-control" asp-items="ViewBag.KotaId"></select>
+                    <span asp-validation-for="KotaId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kecamatan" class="control-label"></label>
+                    <input asp-for="Kecamatan" class="form-control" />
+                    <span asp-validation-for="Kecamatan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Kelurahan" class="control-label"></label>
+                    <input asp-for="Kelurahan" class="form-control" />
+                    <span asp-validation-for="Kelurahan" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsActive" class="control-label"></label>
+                    <input asp-for="IsActive" class="form-control" />
+                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+<div>
+    <a asp-action="Index" asp-route-nasabahId="@ViewData["nasabahId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            $('#PropinsiId').change(function () {
+                $.ajax({
+                    url: '../../api/parameter/citiesbyprovince/' + $('#PropinsiId').val(),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $('#KotaId').empty();
+                        $.each(result, function () {
+                            $('#KotaId').append($("<option />").val(this.cityId).text(this.cityName));
+                        });
+                        $('#KotaId').selectpicker('refresh');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CoreBPR.Models.NasabahPengurus>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["nasabahId"]">Data Nasabah Badan Usaha</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Data Pengurus Perusahaan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Data .....</a>
+    </li>
+</ul>
+<br />
+
+<p>
+    <a asp-action="Create" asp-route-nasabahId="@ViewData["nasabahId"]">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PengurusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GenderPlusId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JabatanId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PercentSaham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KotaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PengurusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefGenderPlus.GenderPlusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefJabatan.JabatanName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PercentSaham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefCity.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-nasabahId="@ViewData["nasabahId"]" asp-route-id="@item.PengurusId">Edit</a> |
+                    <form asp-action="Delete" asp-route-nasabahId="@ViewData["nasabahId"]" asp-route-id="@item.PengurusId">
+                        <input type="submit" value="Delete" class="btn btn-link" />
+                    </form>
+</td>
+            </tr>
+        }
+    </tbody>
+</table>

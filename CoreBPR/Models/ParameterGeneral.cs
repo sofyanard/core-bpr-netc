@@ -18,6 +18,17 @@ namespace CoreBPR.Models
         public string GenderName { get; set; }
     }
 
+    [Table("RefGenderPlus")]
+    public class RefGenderPlus
+    {
+        [Key]
+        [Column("GenderPlusId")]
+        public string GenderPlusId { get; set; }
+
+        [Column("GenderPlusName")]
+        public string GenderPlusName { get; set; }
+    }
+
     [Table("RefHomeStatus")]
     public class RefHomeStatus
     {
