@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using CoreBPR.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace CoreBPR.Controllers
 {
@@ -15,10 +17,12 @@ namespace CoreBPR.Controllers
     public class NasabahDocumentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public NasabahDocumentController(ApplicationDbContext context)
+        public NasabahDocumentController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         // GET: NasabahDocument
@@ -50,21 +54,51 @@ namespace CoreBPR.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create/{nasabahId}")]
-        public async Task<IActionResult> Create(string nasabahId, [Bind("DocumentId,NasabahId,DocTypeId,Caption,FileName")] NasabahDocument nasabahDocument)
+        public async Task<IActionResult> Create(string nasabahId, NasabahDocumentUploadModel model)
         {
             if (ModelState.IsValid)
             {
+                NasabahDocument nasabahDocument = new NasabahDocument();
+                nasabahDocument.NasabahId = nasabahId;
+                nasabahDocument.DocTypeId = model.DocTypeId;
+                nasabahDocument.Caption = model.Caption;
+
+                string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "upload");
+                string uploadFileName = model.FileUpload.FileName;
+                string uploadFilePath = Path.Combine(uploadFolder, uploadFileName);
+
+                if (System.IO.File.Exists(uploadFilePath))
+                {
+                    string fileNameWithoutExt = Path.GetFileNameWithoutExtension(uploadFilePath);
+                    string fileExt = Path.GetExtension(uploadFilePath);
+
+                    int i = 1;
+                    string newFilePath = Path.Combine(uploadFolder, fileNameWithoutExt + "(" + i.ToString() + ")" + fileExt);
+                    while (System.IO.File.Exists(newFilePath))
+                    {
+                        i++;
+                        newFilePath = Path.Combine(uploadFolder, fileNameWithoutExt + "(" + i.ToString() + ")" + fileExt);
+                    }
+
+                    uploadFileName = fileNameWithoutExt + "(" + i.ToString() + ")" + fileExt;
+                    uploadFilePath = Path.Combine(uploadFolder, uploadFileName);
+                }
+
+                await model.FileUpload.CopyToAsync(new FileStream(uploadFilePath, FileMode.Create));
+
+                nasabahDocument.FileName = uploadFileName;
+
                 _context.Add(nasabahDocument);
                 await _context.SaveChangesAsync();
                 ViewData["NasabahId"] = nasabahId;
                 ViewData["NasabahType"] = _context.Nasabahs.Where(x => x.NasabahId == nasabahId).Select(x => x.NasabahType).FirstOrDefault();
                 return RedirectToAction(nameof(Index), new { nasabahId = nasabahId });
             }
-            ViewData["DocTypeId"] = new SelectList(_context.RefDocumentTypes, "DocTypeId", "DocTypeName", nasabahDocument.DocTypeId);
+            ViewData["DocTypeId"] = new SelectList(_context.RefDocumentTypes, "DocTypeId", "DocTypeName", model.DocTypeId);
             ViewData["NasabahId"] = nasabahId;
             string nasabahType = _context.Nasabahs.Where(x => x.NasabahId == nasabahId).Select(x => x.NasabahType).FirstOrDefault();
             ViewData["NasabahType"] = nasabahType;
-            return View(nasabahDocument);
+            return View(model);
         }
 
         // POST: NasabahDocument/Delete/5
@@ -74,6 +108,19 @@ namespace CoreBPR.Controllers
         public async Task<IActionResult> DeleteConfirmed(string nasabahId, int id)
         {
             var nasabahDocument = await _context.NasabahDocuments.FindAsync(id);
+
+            string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "upload");
+            string fileName = nasabahDocument.FileName;
+            string filePath = Path.Combine(uploadFolder, fileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                try
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                catch (Exception ex) { }
+            }
+
             _context.NasabahDocuments.Remove(nasabahDocument);
             await _context.SaveChangesAsync();
             ViewData["NasabahId"] = nasabahId;

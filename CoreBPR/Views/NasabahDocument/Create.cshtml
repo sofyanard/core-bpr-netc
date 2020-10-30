@@ -1,4 +1,4 @@
-﻿@model CoreBPR.Models.NasabahDocument
+﻿@model CoreBPR.Models.NasabahDocumentUploadModel
 
 @{
     ViewData["Title"] = "Create";
@@ -46,7 +46,7 @@ else if ((string)ViewData["NasabahType"] == "2")
 <br />
 
 <p>
-    <form asp-action="Create">
+    <form enctype="multipart/form-data" asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="NasabahId" value="@ViewData["nasabahId"]" />
         <div class="row">
@@ -61,9 +61,9 @@ else if ((string)ViewData["NasabahType"] == "2")
                     <span asp-validation-for="Caption" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FileName" class="control-label"></label>
-                    <input asp-for="FileName" class="form-control" />
-                    <span asp-validation-for="FileName" class="text-danger"></span>
+                    <label asp-for="FileUpload" class="control-label"></label>
+                    <input asp-for="FileUpload" class="form-control" />
+                    <span asp-validation-for="FileUpload" class="text-danger"></span>
                 </div>
             </div>
         </div>
