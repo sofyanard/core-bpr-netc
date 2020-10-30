@@ -1,0 +1,87 @@
+﻿@model IEnumerable<CoreBPR.Models.NasabahDocument>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+@if ((string)ViewData["NasabahType"] == "1")
+{
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Perorangan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditJobnSpouse" asp-route-id="@ViewData["NasabahId"]">Data Pekerjaan dan Pasangan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Data Dokumen Nasabah</a>
+        </li>
+    </ul>
+}
+else if ((string)ViewData["NasabahType"] == "2")
+{
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Badan Usaha</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@ViewData["NasabahId"]">Data Pengurus Perusahaan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="NasabahKeuangan" asp-action="Index" asp-route-id="@ViewData["NasabahId"]">Data Laporan Keuangan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Data Dokumen Nasabah</a>
+        </li>
+    </ul>
+}
+<br />
+
+<p>
+    <a asp-action="Create" asp-route-nasabahId="@ViewData["nasabahId"]">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Caption)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RefDocumentType.DocTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Caption)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    <form asp-action="Delete" asp-route-nasabahId="@ViewData["nasabahId"]" asp-route-id="@item.DocumentId">
+                        <input type="submit" value="Delete" class="btn btn-link" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

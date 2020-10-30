@@ -42,6 +42,8 @@ namespace CoreBPR.Models
         public DbSet<RefGenderPlus> RefGenderPluses { get; set; }
         public DbSet<NasabahPengurus> NasabahPengurus { get; set; }
         public DbSet<NasabahKeuangan> NasabahKeuangans { get; set; }
+        public DbSet<RefDocumentType> RefDocumentTypes { get; set; }
+        public DbSet<NasabahDocument> NasabahDocuments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

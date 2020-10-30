@@ -1,0 +1,82 @@
+﻿@model CoreBPR.Models.NasabahDocument
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Pemeliharaan Data Nasabah</h4>
+<hr />
+@if ((string)ViewData["NasabahType"] == "1")
+{
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Perorangan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditJobnSpouse" asp-route-id="@ViewData["NasabahId"]">Data Pekerjaan dan Pasangan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Data Dokumen Nasabah</a>
+        </li>
+    </ul>
+}
+else if ((string)ViewData["NasabahType"] == "2")
+{
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Badan Usaha</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="NasabahPengurus" asp-action="Index" asp-route-id="@ViewData["NasabahId"]">Data Pengurus Perusahaan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Nasabah" asp-action="EditLaporBadanUsaha" asp-route-id="@ViewData["NasabahId"]">Data Pelaporan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="NasabahKeuangan" asp-action="Index" asp-route-id="@ViewData["NasabahId"]">Data Laporan Keuangan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Data Dokumen Nasabah</a>
+        </li>
+    </ul>
+}
+<br />
+
+<p>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="NasabahId" value="@ViewData["nasabahId"]" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="DocTypeId" class="control-label"></label>
+                    <select asp-for="DocTypeId" class="selectpicker form-control" data-live-search="true" asp-items="ViewBag.DocTypeId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Caption" class="control-label"></label>
+                    <input asp-for="Caption" class="form-control" />
+                    <span asp-validation-for="Caption" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FileName" class="control-label"></label>
+                    <input asp-for="FileName" class="form-control" />
+                    <span asp-validation-for="FileName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</p>
+
+<div>
+    <a asp-action="Index" asp-route-nasabahId="@ViewData["nasabahId"]">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

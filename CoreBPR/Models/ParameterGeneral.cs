@@ -72,4 +72,15 @@ namespace CoreBPR.Models
         [Column("SourceIncomeName")]
         public string SourceIncomeName { get; set; }
     }
+
+    [Table("RefDocumentType")]
+    public class RefDocumentType
+    {
+        [Key]
+        [Column("DocTypeId")]
+        public string DocTypeId { get; set; }
+
+        [Column("DocTypeName")]
+        public string DocTypeName { get; set; }
+    }
 }

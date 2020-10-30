@@ -4,13 +4,16 @@
 <hr />
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" asp-action="EditPerorangan" asp-route-id="@ViewData["NasabahId"]">Data Nasabah Perorangan</a>
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditPerorangan" asp-route-id="@Model.NasabahId">Data Nasabah Perorangan</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-action="EditJobnSpouse" asp-route-id="@ViewData["NasabahId"]">Data Pekerjaan dan Pasangan</a>
+        <a class="nav-link" asp-controller="Nasabah" asp-action="EditJobnSpouse" asp-route-id="@Model.NasabahId">Data Pekerjaan dan Pasangan</a>
     </li>
     <li class="nav-item">
         <a class="nav-link active" href="#">Data Pelaporan</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="NasabahDocument" asp-action="Index" asp-route-id="@Model.NasabahId">Data Dokumen Nasabah</a>
     </li>
 </ul>
 
