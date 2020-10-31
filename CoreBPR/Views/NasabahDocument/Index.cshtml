@@ -74,7 +74,9 @@ else if ((string)ViewData["NasabahType"] == "2")
                     @Html.DisplayFor(modelItem => item.Caption)
                 </td>
                 <td>
+                    <a href="@Url.Content("~/upload/" + item.FileName)" download>
                     @Html.DisplayFor(modelItem => item.FileName)
+                    </a>
                 </td>
                 <td>
                     <form asp-action="Delete" asp-route-nasabahId="@ViewData["nasabahId"]" asp-route-id="@item.DocumentId">
