@@ -44,6 +44,7 @@ namespace CoreBPR.Models
         public DbSet<NasabahKeuangan> NasabahKeuangans { get; set; }
         public DbSet<RefDocumentType> RefDocumentTypes { get; set; }
         public DbSet<NasabahDocument> NasabahDocuments { get; set; }
+        public DbSet<RefKategoriCatatan> RefKategoriCatatans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

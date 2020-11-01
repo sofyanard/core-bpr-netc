@@ -357,6 +357,25 @@ namespace CoreBPR.Models
         [Column("UpdatedUserId")]
         [StringLength(20)]
         public string UpdatedUserId { get; set; }
+
+        [Column("KategoriCatatanId")]
+        [StringLength(10)]
+        public string KategoriCatatanId { get; set; }
+
+        [ForeignKey("KategoriCatatanId")]
+        public virtual RefKategoriCatatan RefKategoriCatatan { get; set; }
+
+        [Column("CatatanSource")]
+        [StringLength(50)]
+        public string CatatanSource { get; set; }
+
+        [Column("CatatanExpiredDate")]
+        [DataType(DataType.Date)]
+        public DateTime? CatatanExpiredDate { get; set; }
+
+        [Column("Catatan")]
+        [StringLength(250)]
+        public string Catatan { get; set; }
     }
 
     public class NasabahPerorangan
@@ -886,5 +905,33 @@ namespace CoreBPR.Models
         [StringLength(50)]
         [Display(Name = "Group Usaha")]
         public string GroupUsaha { get; set; }
+    }
+
+    public class NasabahCatatan
+    {
+        [Key]
+        public string NasabahId { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Kategori")]
+        public string KategoriCatatanId { get; set; }
+
+        [ForeignKey("KategoriCatatanId")]
+        public virtual RefKategoriCatatan RefKategoriCatatan { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Source")]
+        public string CatatanSource { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Tanggal Expired")]
+        public DateTime? CatatanExpiredDate { get; set; }
+
+        [Required]
+        [StringLength(250)]
+        [Display(Name = "Catatan")]
+        public string Catatan { get; set; }
     }
 }

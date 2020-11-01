@@ -83,4 +83,15 @@ namespace CoreBPR.Models
         [Column("DocTypeName")]
         public string DocTypeName { get; set; }
     }
+
+    [Table("RefKategoriCatatan")]
+    public class RefKategoriCatatan
+    {
+        [Key]
+        [Column("KategoriCatatanId")]
+        public string KategoriCatatanId { get; set; }
+
+        [Column("KategoriCatatanName")]
+        public string KategoriCatatanName { get; set; }
+    }
 }

@@ -799,6 +799,193 @@ namespace CoreBPR.Controllers
             return View(nasabahLaporBadanUsaha);
         }
 
+        [Route("ListCatatan")]
+        public async Task<IActionResult> ListCatatan(
+            string NasabahId,
+            string IdentityNo,
+            string NPWPNo,
+            string NamaLengkap,
+            string TanggalLahir,
+            string Address,
+            string KotaId,
+            int pageNumber = 1)
+        {
+            ViewData["CityId"] = new SelectList(_context.RefCities.OrderBy(x => x.CityId), "CityId", "CityName", KotaId);
+
+            ViewData["NasabahId"] = NasabahId;
+            ViewData["IdentityNo"] = IdentityNo;
+            ViewData["NPWPNo"] = NPWPNo;
+            ViewData["NamaLengkap"] = NamaLengkap;
+            ViewData["TanggalLahir"] = TanggalLahir;
+            ViewData["Address"] = Address;
+            ViewData["KotaId"] = KotaId;
+
+            var nasabahs = from s in _context.Nasabahs
+                           select s;
+
+            if (!String.IsNullOrEmpty(NasabahId))
+            {
+                nasabahs = nasabahs.Where(s => s.NasabahId == NasabahId);
+            }
+
+            if (!String.IsNullOrEmpty(IdentityNo))
+            {
+                nasabahs = nasabahs.Where(s => s.IdentityNo == IdentityNo
+                    || s.APPNo == IdentityNo || s.APPChangeNo == IdentityNo);
+            }
+
+            if (!String.IsNullOrEmpty(NPWPNo))
+            {
+                nasabahs = nasabahs.Where(s => s.NPWPNo == NPWPNo);
+            }
+
+            if (!String.IsNullOrEmpty(NamaLengkap))
+            {
+                nasabahs = nasabahs.Where(s => s.NamaLengkap.ToLower().Contains(NamaLengkap.ToLower()));
+            }
+
+            if (!String.IsNullOrEmpty(Address))
+            {
+                nasabahs = nasabahs.Where(s => s.HomeAddress.ToLower().Contains(Address.ToLower())
+                    || s.OfficeAddress.ToLower().Contains(Address.ToLower()));
+            }
+
+            if (!String.IsNullOrEmpty(TanggalLahir))
+            {
+                nasabahs = nasabahs.Where(s => s.TanggalLahir.ToString().Contains(TanggalLahir));
+            }
+
+            if (!String.IsNullOrEmpty(KotaId))
+            {
+                nasabahs = nasabahs.Where(s => s.HomeKotaId == KotaId ||
+                    s.OfficeKotaId == KotaId);
+            }
+
+            int pageSize = 10;
+
+            int numRows = nasabahs.Count();
+
+            int excludeRecords = (pageSize * pageNumber) - pageSize;
+
+            nasabahs = nasabahs.Skip(excludeRecords).Take(pageSize);
+
+            nasabahs = nasabahs.Include(r => r.RefJenisBadanUsaha).Include(r => r.HomeRefCity).Include(r => r.OfficeRefCity);
+
+            List<NasabahList> nasabahLists = new List<NasabahList>();
+
+            foreach (var nasabah in nasabahs)
+            {
+                NasabahList nasabahList = new NasabahList();
+                nasabahList.NasabahId = nasabah.NasabahId;
+                nasabahList.NasabahType = nasabah.NasabahType;
+                nasabahList.NamaLengkap = nasabah.NasabahType == "1" ? nasabah.NamaLengkap : nasabah.RefJenisBadanUsaha.JenisBadanUsahaName + " " + nasabah.NamaLengkap;
+                nasabahList.TanggalLahir = nasabah.TanggalLahir;
+                nasabahList.Address = nasabah.NasabahType == "1" ? nasabah.HomeAddress : nasabah.OfficeAddress;
+                nasabahList.KotaId = nasabah.NasabahType == "1" ? nasabah.HomeKotaId : nasabah.OfficeKotaId;
+                nasabahList.RefCity = nasabah.NasabahType == "1" ? nasabah.HomeRefCity : nasabah.OfficeRefCity;
+                nasabahList.IdentityNo = nasabah.NasabahType == "1" ? nasabah.IdentityNo : nasabah.APPNo;
+                nasabahList.NPWPNo = nasabah.NPWPNo;
+                nasabahList.Action = "EditCatatan";
+
+                nasabahLists.Add(nasabahList);
+            }
+
+            var results = new PagedResult<NasabahList>
+            {
+                Data = nasabahLists.ToList(),
+                TotalItems = numRows,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return View(results);
+        }
+
+        [Route("Edit/Catatan/{id}")]
+        public async Task<IActionResult> EditCatatan(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var nasabah = await _context.Nasabahs.FindAsync(id);
+            if (nasabah == null)
+            {
+                return NotFound();
+            }
+
+            NasabahCatatan nasabahCatatan = new NasabahCatatan();
+            nasabahCatatan.NasabahId = nasabah.NasabahId;
+            nasabahCatatan.KategoriCatatanId = nasabah.KategoriCatatanId;
+            nasabahCatatan.CatatanSource = nasabah.CatatanSource;
+            nasabahCatatan.CatatanExpiredDate = nasabah.CatatanExpiredDate;
+            nasabahCatatan.Catatan = nasabah.Catatan;
+
+            ViewData["KategoriCatatanId"] = new SelectList(_context.RefKategoriCatatans, "KategoriCatatanId", "KategoriCatatanName", nasabahCatatan.KategoriCatatanId);
+            ViewData["NasabahId"] = id;
+            return View(nasabahCatatan);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Edit/Catatan/{id}")]
+        public async Task<IActionResult> EditCatatan(string id, NasabahCatatan nasabahCatatan)
+        {
+            if (id != nasabahCatatan.NasabahId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Nasabah nasabah = _context.Nasabahs.Find(id);
+                    nasabah.NasabahId = nasabahCatatan.NasabahId;
+                    nasabah.KategoriCatatanId = nasabahCatatan.KategoriCatatanId;
+                    nasabah.CatatanSource = nasabahCatatan.CatatanSource;
+                    nasabah.CatatanExpiredDate = nasabahCatatan.CatatanExpiredDate;
+                    nasabah.Catatan = nasabahCatatan.Catatan;
+
+                    _context.Update(nasabah);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NasabahExists(nasabahCatatan.NasabahId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(EditCatatan), new { id = id });
+            }
+            ViewData["KategoriCatatanId"] = new SelectList(_context.RefKategoriCatatans, "KategoriCatatanId", "KategoriCatatanName", nasabahCatatan.KategoriCatatanId);
+            ViewData["NasabahId"] = id;
+            return View(nasabahCatatan);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Delete/Catatan/{id}")]
+        public async Task<IActionResult> DeleteCatatan(string id)
+        {
+            Nasabah nasabah = _context.Nasabahs.Find(id);
+            nasabah.KategoriCatatanId = null;
+            nasabah.CatatanSource = null;
+            nasabah.CatatanExpiredDate = null;
+            nasabah.Catatan = null;
+
+            _context.Update(nasabah);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(EditCatatan), new { id = id });
+        }
+
         private bool NasabahExists(string id)
         {
             return _context.Nasabahs.Any(e => e.NasabahId == id);

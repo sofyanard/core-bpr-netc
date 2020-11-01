@@ -46,6 +46,9 @@ namespace CoreBPR.Models
 
         [Column("Param")]
         public string Param { get; set; }
+
+        [Column("Icon")]
+        public string Icon { get; set; }
     }
 
     [Table("RefGroupMenu")]
@@ -75,6 +78,7 @@ namespace CoreBPR.Models
         public string Controller { get; set; }
         public string Action { get; set; }
         public string Param { get; set; }
+        public string Icon { get; set; }
     }
 
     public class ApplicationMenu
